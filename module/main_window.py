@@ -2,7 +2,6 @@ import os
 import markdown
 from PySide6.QtWidgets import QMainWindow, QTextEdit, QSplitter, QFileDialog
 from PySide6.QtCore import Qt, QTimer
-from PySide6.QtWebEngineWidgets import QWebEngineView
 from PySide6.QtGui import QAction, QIcon
 
 
@@ -30,6 +29,7 @@ class MainWindow(QMainWindow):
         self._create_menu()
         splitter = QSplitter(Qt.Horizontal)
         self.editor = QTextEdit()
+        from PySide6.QtWebEngineWidgets import QWebEngineView
         self.preview = QWebEngineView()
         splitter.addWidget(self.editor)
         splitter.addWidget(self.preview)
