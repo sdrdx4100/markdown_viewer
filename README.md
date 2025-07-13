@@ -15,10 +15,13 @@ markdown_viewer/
 ├── main.py                # メインアプリケーション
 ├── register_context_menu.py  # 右クリックメニュー登録・解除スクリプト
 ├── requirements.txt
-├── build.ps1              # ビルド用PowerShellスクリプト
 ├── README.md
-└── .vscode/
-    └── tasks.json
+├── module/                # アプリケーションロジック
+│   ├── main_window.py
+│   └── register_context_menu.py
+└── static/                # アイコンやスタイルシート
+    ├── icon.ico
+    └── style.css
 ```
 
 ## 開発環境準備
@@ -30,25 +33,20 @@ pip install -r requirements.txt
 ```
 
 ## ビルド
+PyInstaller を利用して単一ファイルの実行形式を作成できます。
 ```powershell
-# PowerShellスクリプト実行
-.\build.ps1
+pyinstaller --noconsole --onefile --name MarkdownViewer main.py
 ```
 
 ## コンテキストメニュー登録
+生成した `MarkdownViewer.exe` を右クリックメニューから起動できるように登録するスクリプトが用意されています。
 ```powershell
-# ビルド後、Distフォルダに生成されたMarkdownViewer.exeを
-# register_context_menu.exe（または直接register_context_menu.pyを実行）へリネームしてから実行
-.
-# 例: 
-copy .\dist\MarkdownViewer.exe .\register_context_menu.exe
-.
-# 登録
-.
-# 右クリックで「Markdown Viewer」が表示されるようになる
+# exe ファイルを指定して登録
+python register_context_menu.py path\to\MarkdownViewer.exe
 ```
+実行後、`.md` ファイルを右クリックすると **Markdown Viewer** が表示されます。
 
 ## コンテキストメニュー解除
 ```powershell
-register_context_menu.exe --uninstall
+python register_context_menu.py --uninstall
 ```
