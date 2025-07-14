@@ -35,9 +35,10 @@ pip install -r requirements.txt
 ```
 
 ## ビルド
-PyInstaller を利用して単一ファイルの実行形式を作成できます。
+PyInstaller を利用して実行形式を作成できます（`--onefile` を指定しないため、高速起動が可能です）。
+- 修正版コマンド例:
 ```powershell
-pyinstaller --noconsole --onefile --name MarkdownViewer main.py
+pyinstaller --windowed --name MarkdownViewer --icon="static/icon.ico" main.py
 ```
 
 ## コンテキストメニュー登録

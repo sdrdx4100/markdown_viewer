@@ -1,11 +1,12 @@
 import os
-import markdown
+# markdown のインポートは update_preview 内で遅延実行
 from PySide6.QtWidgets import (
     QMainWindow,
     QTextEdit,
     QSplitter,
     QFileDialog,
     QMenu,
+    QDialog,
 )
 from PySide6.QtCore import Qt, QTimer, QSettings
 from PySide6.QtGui import QAction, QIcon, QFont
@@ -31,6 +32,7 @@ class MainWindow(QMainWindow):
         self.css = ""
         self.load_css()
 
+        self.preview = None
         title = "Markdown Viewer"
         if filepath:
             title += f" - {os.path.basename(filepath)}"
@@ -44,7 +46,6 @@ class MainWindow(QMainWindow):
         self.editor = QTextEdit()
         splitter.addWidget(self.editor)
         self.load_settings()
-        self.preview = None
         if self.settings.value("preview_visible", True, bool):
             self._create_preview(splitter)
         splitter.setStretchFactor(0, 1)
@@ -71,6 +72,8 @@ class MainWindow(QMainWindow):
         self.debounce_timer.start(300)
 
     def update_preview(self):
+        # markdown モジュールを遅延インポート
+        import markdown
         if self.preview is None:
             self._create_preview(self.splitter)
         body = markdown.markdown(
@@ -90,9 +93,9 @@ class MainWindow(QMainWindow):
     def _create_preview(self, splitter):
         """プレビューペインを生成する。"""
         from PySide6.QtWebEngineWidgets import QWebEngineView
-        self.preview = QWebEngineView()
+        # splitter を親に指定し、明示的な show() は不要
+        self.preview = QWebEngineView(splitter)
         splitter.addWidget(self.preview)
-        self.preview.show()
 
     def _create_menu(self):
         menu_bar = self.menuBar()
@@ -200,7 +203,8 @@ class MainWindow(QMainWindow):
     def open_settings(self):
         """設定ダイアログを開く。"""
         dialog = SettingsDialog(self)
-        if dialog.exec() == dialog.Accepted:
+        # exec() returns QDialog.Accepted or Rejected
+        if dialog.exec() == QDialog.Accepted:
             dialog.save()
             self.load_settings()
             self.load_css()
@@ -260,4 +264,3 @@ class MainWindow(QMainWindow):
             self.current_file = path
             self.setWindowTitle(f"Markdown Viewer - {os.path.basename(path)}")
             self.update_preview()
-

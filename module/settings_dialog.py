@@ -16,9 +16,11 @@ class SettingsDialog(QDialog):
         self.setWindowTitle("Settings")
         self.settings = QSettings("MarkdownViewer", "MarkdownViewer")
         layout = QVBoxLayout(self)
+        # 見出し: エディタ設定
+        layout.addWidget(QLabel("Editor Settings:"))
 
         # font family
-        layout.addWidget(QLabel("Font"))
+        layout.addWidget(QLabel("Font (Editor)"))
         self.font_box = QFontComboBox()
         family = self.settings.value("font_family", QFont().family())
         self.font_box.setCurrentFont(QFont(family))
@@ -47,9 +49,12 @@ class SettingsDialog(QDialog):
         dir_layout.addWidget(self.dir_edit)
         dir_layout.addWidget(self.dir_button)
         layout.addLayout(dir_layout)
+        # 見出し: プレビュー設定
+        layout.addSpacing(10)
+        layout.addWidget(QLabel("Preview Settings:"))
 
         # style sheet
-        layout.addWidget(QLabel("Style Sheet"))
+        layout.addWidget(QLabel("Style Sheet (Preview CSS for Markdown Preview)"))
         self.style_combo = QComboBox()
         css_dir = os.path.join(os.path.dirname(__file__), '..', 'static')
         for fname in os.listdir(css_dir):
@@ -60,6 +65,10 @@ class SettingsDialog(QDialog):
         if index >= 0:
             self.style_combo.setCurrentIndex(index)
         layout.addWidget(self.style_combo)
+        # Editor設定をデフォルトにリセットする
+        self.reset_button = QPushButton("Reset Editor Settings")
+        self.reset_button.clicked.connect(self.reset_defaults)
+        layout.addWidget(self.reset_button)
 
         buttons = QDialogButtonBox(QDialogButtonBox.Ok | QDialogButtonBox.Cancel)
         buttons.accepted.connect(self.accept)
@@ -80,3 +89,10 @@ class SettingsDialog(QDialog):
         self.settings.setValue("default_directory", self.dir_edit.text())
         self.settings.setValue("style_sheet", self.style_combo.currentText())
 
+    def reset_defaults(self):
+        """エディタ設定をデフォルト値にリセットする。"""
+        # デフォルトのフォントファミリーとサイズ、タブ幅を設定
+        default_family = QFont().family()
+        self.font_box.setCurrentFont(QFont(default_family))
+        self.font_size.setValue(10)
+        self.tab_width.setValue(4)

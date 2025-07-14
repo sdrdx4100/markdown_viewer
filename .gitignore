@@ -33,5 +33,10 @@ htmlcov/
 
 # Jupyter Notebook チェックポイント
 .ipynb_checkpoints/
+ 
+# PyInstallerで生成されるファイル・ディレクトリを除外
+build/
+dist/
 
 # その他プロジェクト固有で除外したいものがあれば追記
+MarkdownViewer.spec

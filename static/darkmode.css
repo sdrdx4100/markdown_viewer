@@ -1,0 +1,113 @@
+/* Simple Modern Dark Markdown Styles */
+body {
+  font-family: 'Segoe UI', 'Meiryo', 'Noto Sans JP', Arial, sans-serif;
+  line-height: 1.7;
+  color: #e0e6ed;
+  background: #23272e;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+a {
+  color: #68aee8;
+  text-decoration: underline dotted;
+  transition: color 0.2s;
+}
+a:hover {
+  color: #ffb347;
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 2em;
+  margin-bottom: 1em;
+  font-weight: 700;
+  color: #ffd369;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  letter-spacing: 0.03em;
+}
+h1 { font-size: 2.3em; border-bottom: 2px solid #394049; padding-bottom: 0.3em; }
+h2 { font-size: 2em; border-bottom: 1.5px solid #394049; padding-bottom: 0.3em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.9em; color: #a0aec0; }
+
+p { margin: 1em 0; }
+
+ul, ol { padding-left: 2rem; margin: 1em 0; }
+
+blockquote {
+  margin: 1.2em 0;
+  padding: 0.5em 1.2em;
+  color: #a9a9b3;
+  border-left: 5px solid #68aee8;
+  background: #282c34;
+  border-radius: 0 8px 8px 0;
+}
+
+pre, code {
+  font-family: 'JetBrains Mono', 'Fira Mono', 'SFMono-Regular', Consolas, monospace;
+  font-size: 95%;
+}
+code {
+  background: #2d3340;
+  color: #ffd369;
+  padding: 0.2em 0.5em;
+  border-radius: 5px;
+}
+pre {
+  background: #1e222a;
+  color: #e0e6ed;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.2em 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5em 0;
+  background: #282c34;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+table th,
+table td {
+  border: 1px solid #393e46;
+  padding: 0.8em 1.2em;
+}
+table th {
+  background: #313744;
+  color: #ffd369;
+}
+table tr:nth-child(even) td {
+  background: #23272e;
+}
+table tr:nth-child(odd) td {
+  background: #282c34;
+}
+
+img {
+  max-width: 98%;
+  display: block;
+  margin: 1.5em auto;
+  border-radius: 10px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.15);
+}
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, #68aee8, #ffd369, #68aee8);
+  margin: 2em 0;
+  border-radius: 2px;
+}
