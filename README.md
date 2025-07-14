@@ -8,6 +8,8 @@ Windows向けMarkdownビューア・エディタ
 - `markdown`パッケージでMarkdown→HTML変換
 - PyInstallerで単一のexe化
 - Windowsのエクスプローラー右クリックメニューに登録可能
+- 検索・置換や最近使ったファイル履歴、設定ダイアログを搭載
+- プレビューのON/OFFや同期スクロールを備えた分割ビュー
 
 ## ファイル構成
 ```
