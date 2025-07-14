@@ -100,6 +100,10 @@ class MainWindow(QMainWindow):
     def _create_menu(self):
         menu_bar = self.menuBar()
         file_menu = menu_bar.addMenu("&File")
+        new_action = QAction("&New", self)
+        new_action.setShortcut("Ctrl+N")
+        new_action.triggered.connect(self.new_file)
+        file_menu.addAction(new_action)
         open_action = QAction("&Open", self)
         open_action.setShortcut("Ctrl+O")
         open_action.triggered.connect(self.open_file)
@@ -139,6 +143,14 @@ class MainWindow(QMainWindow):
         self.toggle_preview_action.setChecked(self.preview is not None)
         self.toggle_preview_action.triggered.connect(self.toggle_preview)
         view_menu.addAction(self.toggle_preview_action)
+
+    def new_file(self):
+        """エディタを空の状態に戻す。"""
+
+        self.editor.clear()
+        self.current_file = None
+        self.setWindowTitle("Markdown Viewer")
+        self.update_preview()
 
     def open_file(self):
         start_dir = self.settings.value("default_directory", "")
